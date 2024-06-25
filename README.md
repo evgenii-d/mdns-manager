@@ -1,1 +1,1 @@
-# mdns-manager
+# mDNS Manager
