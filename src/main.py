@@ -10,7 +10,6 @@ from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from zeroconf import ServiceInfo, Zeroconf
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -92,11 +91,13 @@ def load_config(config_path: Path) -> MDNSConfig:
 
 def main() -> None:
     """Configuration loading and service setup."""
+    log_format = "%(asctime)s [%(levelname)s] %(module)s: %(message)s"
+    logging.basicConfig(level=logging.INFO, format=log_format)
     config_path = Path(__file__).parent/"config.json"
     mdns_config = load_config(config_path)
 
     service_name = mdns_config.name
-    if mdns_config.name == "":
+    if not mdns_config.name:
         service_name = socket.gethostname()
 
     service_info = ServiceInfo(
