@@ -22,6 +22,7 @@ Wants=network-online.target
 
 [Service]
 Restart=always
+TimeoutStopSec=5s
 ExecStart=$app_dir/venv/bin/python $app_dir/src/main.py
 
 [Install]
